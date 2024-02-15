@@ -29,13 +29,14 @@ export default function Navbar() {
   return (
     <MDBNavbar expand="lg" light bgColor="light" className="fixed-top">
       <MDBContainer fluid>
-        <MDBNavbarBrand href="#">
-          <img
+        <MDBNavbarBrand href="/">
+          {/* <img
             src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.webp"
             height="30"
-            alt=""
+            alt="Error"
             loading="lazy"
-          />
+          /> */}
+          <strong>Stress Relief App</strong>
         </MDBNavbarBrand>
         <MDBNavbarToggler
           type="button"

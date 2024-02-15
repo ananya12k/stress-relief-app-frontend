@@ -1,5 +1,13 @@
-const Home = () => {
-  return <div>Home</div>;
+import HeroBan from "./Hero";
+import Navbar from "./NavBar";
+
+const HomePage = () => {
+  return (
+    <>
+      <Navbar />
+      <HeroBan />
+    </>
+  );
 };
 
-export default Home;
+export default HomePage;
