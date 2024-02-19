@@ -34,6 +34,7 @@ const LoginComp = ({ show, handleClose }) => {
               className="ms-auto click-handler"
               size="lg"
               onClick={handleClose}
+              style={{ marginBottom: "1rem" }}
             />
 
             <div>

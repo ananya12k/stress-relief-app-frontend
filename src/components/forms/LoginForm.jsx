@@ -39,19 +39,26 @@ const LoginForm = () => {
         type="password"
         hidden={true}
         id="form7Example2"
-        label="Password"
       />{" "}
-      <MDBRow className="mb-3">
-        {" "}
-        {/* Adjusted margin-bottom */}
-        <MDBCol className="d-flex justify-content-center">
-          <MDBCheckbox
-            id="form7Example3"
-            label="Remember me"
-            defaultChecked
+      <MDBRow className="mb-3 d-flex align-items-center">
+        <MDBCol xs={6}>
+          <MDBInput
+            className="mb-0"
+            type="password"
+            id="form7Example2"
+            label="Password"
           />
         </MDBCol>
-        <MDBCol>
+        <MDBCol
+          xs={6}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr auto",
+            justifyItems: "start end",
+            marginTop: "1rem",
+          }}
+        >
+          <MDBCheckbox id="form7Example3" label="Remember me" defaultChecked />
           <a href="#!">Forgot password?</a>
         </MDBCol>
       </MDBRow>
