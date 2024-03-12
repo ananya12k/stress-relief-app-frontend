@@ -57,6 +57,7 @@ export default function Navbar() {
             <MDBNavbarNav right fullWidth={false} className="mb-2 mb-lg-0">
               <MDBNavbarItem>
                 <MDBNavbarLink
+                  href="/"
                   active={activeTab === "home"}
                   onClick={() => handleTabClick("home")}
                 >
