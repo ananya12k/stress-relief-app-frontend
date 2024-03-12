@@ -1,6 +1,11 @@
+import NavBar from "../components/NavBar";
 
 const InsightsPage = () => {
-  return <div>InsightsPage</div>;
+  return (
+    <>
+      <NavBar />
+    </>
+  );
 };
 
 export default InsightsPage;

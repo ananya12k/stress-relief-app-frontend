@@ -1,10 +1,10 @@
-import HeroBan from "./Hero";
-import Navbar from "./NavBar";
+import NavBar from "../components/NavBar";
+import HeroBan from "../components/Hero";
 
 const HomePage = () => {
   return (
     <>
-      <Navbar />
+      <NavBar />
       <HeroBan />
     </>
   );

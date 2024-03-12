@@ -74,18 +74,11 @@ export default function Navbar() {
               </MDBNavbarItem>
               <MDBNavbarItem>
                 <MDBNavbarLink
+                  href="/insights"
                   active={activeTab === "insights"}
                   onClick={() => handleTabClick("insights")}
                 >
                   Insights
-                </MDBNavbarLink>
-              </MDBNavbarItem>
-              <MDBNavbarItem>
-                <MDBNavbarLink
-                  active={activeTab === "extras"}
-                  onClick={() => handleTabClick("extras")}
-                >
-                  Extras
                 </MDBNavbarLink>
               </MDBNavbarItem>
               <MDBNavbarItem>

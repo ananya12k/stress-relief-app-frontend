@@ -1,9 +1,8 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import HomePage from "./components/Home";
+import HomePage from "./pages/HomePage";
 import ExercisesPage from "./pages/ExercisesPage";
 import InsightsPage from "./pages/InsightsPage";
-import ExtrasPage from "./pages/ExtrasPage";
 
 function App() {
   return (
@@ -12,9 +11,8 @@ function App() {
         <Routes>
           <Route path="/" Component={HomePage} />
           <Route path="/exercises" Component={ExercisesPage} />
-          <Route path="*" element={<h1>Not Found</h1>} />
-          <Route path="/insights" element={InsightsPage} />
-          <Route path="/extras" element={ExtrasPage} />
+          <Route path="*" ele ment={<h1>Not Found</h1>} />
+          <Route path="/insights" Component={InsightsPage} />
         </Routes>
       </Router>
     </>

@@ -1,5 +1,11 @@
+import NavBar from "../components/NavBar";
+
 const ExercisesPage = () => {
-  return <></>;
+  return (
+    <>
+      <NavBar />
+    </>
+  );
 };
 
 export default ExercisesPage;
