@@ -22,6 +22,7 @@ const Editor = forwardRef(
       const editorContainer = container.appendChild(
         container.ownerDocument.createElement("div")
       );
+      
       const quill = new Quill(editorContainer, {
         theme: "snow",
       });
