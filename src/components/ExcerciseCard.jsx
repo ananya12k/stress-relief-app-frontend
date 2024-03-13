@@ -7,7 +7,13 @@ import {
   MDBBtn,
 } from "mdb-react-ui-kit";
 
-export default function ExerciseCard({ imageURL, title, text, buttonText }) {
+export default function ExerciseCard({
+  imageURL,
+  title,
+  text,
+  buttonText,
+  link,
+}) {
   return (
     <MDBCard>
       <MDBCardImage src={imageURL} position="top" alt="Exercise Image" />
@@ -16,7 +22,7 @@ export default function ExerciseCard({ imageURL, title, text, buttonText }) {
         <MDBCardText style={{ maxHeight: "80px", overflow: "hidden" }}>
           {text}
         </MDBCardText>
-        <MDBBtn href="#">{buttonText}</MDBBtn>
+        <MDBBtn href={link}>{buttonText}</MDBBtn>
       </MDBCardBody>
     </MDBCard>
   );
