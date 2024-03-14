@@ -1,9 +1,8 @@
 import * as React from "react";
-import { styled, useTheme } from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
-import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
@@ -18,57 +17,11 @@ import HomeIcon from "@mui/icons-material/Home";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ListIcon from "@mui/icons-material/List";
 import { ListItemButton } from "@mui/material";
-import TextEditor from "./quill/TextEditor";
-const drawerWidth = 240;
-
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create("margin", {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    }),
-    width: "100%", // Cover the whole page
-    marginTop: "64px", // Adjust as per your AppBar height
-    display: "flex",
-    justifyContent: "center",
-  })
-);
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  transition: theme.transitions.create(["margin", "width"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: "flex-end",
-}));
+import QuillEditor from "./quill/QuillEditor";
+import QuillAppBar from "./quill/QuillAppBar";
+import QuillMain from "./quill/QuillMain";
+import QuillDrawerHeader from "./quill/QuillDrawerHeader";
+import { drawerWidth } from "../utils/constants";
 
 export default function DiarySideNavBar() {
   const theme = useTheme();
@@ -85,7 +38,7 @@ export default function DiarySideNavBar() {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <QuillAppBar position="fixed" open={open}>
         <Toolbar
           sx={{
             display: "flex",
@@ -117,7 +70,7 @@ export default function DiarySideNavBar() {
             Persistent drawer
           </Typography>
         </Toolbar>
-      </AppBar>
+      </QuillAppBar>
       <Drawer
         sx={{
           width: drawerWidth,
@@ -131,7 +84,7 @@ export default function DiarySideNavBar() {
         anchor="left"
         open={open}
       >
-        <DrawerHeader>
+        <QuillDrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
@@ -139,7 +92,7 @@ export default function DiarySideNavBar() {
               <ChevronRightIcon />
             )}
           </IconButton>
-        </DrawerHeader>
+        </QuillDrawerHeader>
         <Divider />
         <List>
           {/* New Entry */}
@@ -159,10 +112,11 @@ export default function DiarySideNavBar() {
           </ListItemButton>
         </List>
       </Drawer>
-      <Main open={open}>
-        <DrawerHeader />
-        <TextEditor />
-      </Main>
+      <QuillMain open={open}>
+        <QuillDrawerHeader />
+        {/* <TextEditor /> */}
+        <QuillEditor />
+      </QuillMain>
     </Box>
   );
 }
