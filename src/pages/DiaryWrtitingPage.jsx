@@ -1,4 +1,4 @@
-import DiarySideNavBar from "../components/DiarySideNavBar";
+import DiarySideNavBar from "../components/quill/DiarySideNavBar.jsx";
 
 const DiaryWrtitingPage = () => {
   return (

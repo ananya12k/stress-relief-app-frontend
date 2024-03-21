@@ -1,10 +1,35 @@
+import React, { useState } from "react";
+import axios from "axios";
 import { MDBBtn, MDBIcon, MDBInput, MDBCheckbox } from "mdb-react-ui-kit";
 
-const SignupForm = () => {
+const SignupForm = ({ onSubmit }) => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    login: "",
+    password: "",
+  });
+
+  const onChangeHandler = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(
+      formData.firstName,
+      formData.lastName,
+      formData.login,
+      formData.password
+    );
+  };
+
   return (
-    <form className="p-3">
-      {" "}
-      {/* Added padding to the form */}
+    <form className="p-3" onSubmit={handleSubmit}>
       <div className="text-center mb-2">
         <p>Sign up with:</p>
 
@@ -21,38 +46,45 @@ const SignupForm = () => {
         </MDBBtn>
       </div>
       <p className="text-center">or:</p>
-      <MDBInput className="mb-3" id="form8Example2" label="Username" />{" "}
-      {/* Added margin-bottom */}
+      <MDBInput
+        className="mb-3"
+        id="form8Example4"
+        name="login"
+        label="Username"
+        onChange={onChangeHandler}
+      />
+      <MDBInput
+        className="mb-3"
+        id="form8Example2"
+        name="firstName"
+        label="First Name"
+        onChange={onChangeHandler}
+      />
       <MDBInput
         className="mb-3"
         id="form8Example3"
-        label="Email address"
-      />{" "}
-      {/* Added margin-bottom */}
-      <MDBInput
-        className="mb-3"
-        type="password"
-        id="form8Example4"
-        label="Password"
-      />{" "}
-      {/* Added margin-bottom */}
+        name="lastName"
+        label="Last Name"
+        onChange={onChangeHandler}
+      />
+
       <MDBInput
         className="mb-3"
         type="password"
         id="form8Example5"
-        label="Repeat password"
-      />{" "}
-      {/* Added margin-bottom */}
+        name="password"
+        label="Password"
+        onChange={onChangeHandler}
+      />
       <MDBCheckbox
         wrapperClass="d-flex justify-content-center mb-3"
         id="form8Example6"
         label="I have read and agree to the terms"
         defaultChecked
       />
+
       <MDBBtn type="submit" className="mb-3" block>
-        {" "}
-        {/* Adjusted margin-bottom */}
-        Sign in
+        Sign up
       </MDBBtn>
     </form>
   );

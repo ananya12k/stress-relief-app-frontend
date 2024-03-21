@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   MDBContainer,
   MDBNavbar,
@@ -13,6 +13,20 @@ import {
 import LoginComp from "./modals/LoginComp";
 
 export default function Navbar() {
+  useEffect(() => {
+    // Check if JWT token is present in localStorage
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+  const handleLogout = () => {
+    // Remove JWT token from localStorage
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+  };
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [openNavRight, setOpenNavRight] = useState(false);
   const [activeTab, setActiveTab] = useState("home");
   const [showModal, setShowModal] = useState(false);
@@ -82,16 +96,27 @@ export default function Navbar() {
                   Insights
                 </MDBNavbarLink>
               </MDBNavbarItem>
+              {/* Replace the dropdown with a simple button */}
               <MDBNavbarItem>
-                {/* Replace the dropdown with a simple button */}
-                <MDBBtn
-                  rounded
-                  className="mx-2"
-                  color="info"
-                  onClick={handleOpen}
-                >
-                  <MDBNavbarLink>Login</MDBNavbarLink>
-                </MDBBtn>
+                {isLoggedIn ? (
+                  <MDBBtn
+                    rounded
+                    className="mx-2"
+                    color="info"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </MDBBtn>
+                ) : (
+                  <MDBBtn
+                    rounded
+                    className="mx-2"
+                    color="info"
+                    onClick={handleOpen}
+                  >
+                    Login
+                  </MDBBtn>
+                )}
               </MDBNavbarItem>
             </MDBNavbarNav>
           </MDBCollapse>

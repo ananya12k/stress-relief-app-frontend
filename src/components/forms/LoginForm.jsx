@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   MDBBtn,
   MDBIcon,
@@ -7,11 +8,39 @@ import {
   MDBCheckbox,
 } from "mdb-react-ui-kit";
 
-const LoginForm = () => {
+const LoginForm = ({ onLogin, onRegister }) => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    login: "",
+    password: "",
+  });
+
+  const onChangeHandler = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    onLogin(formData.login, formData.password);
+  };
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    onRegister(
+      formData.firstName,
+      formData.lastName,
+      formData.login,
+      formData.password
+    );
+  };
+
   return (
     <form className="p-3">
-      {" "}
-      {/* Added padding to the form */}
       <div className="text-center mb-2">
         <p> Login with:</p>
 
@@ -33,22 +62,18 @@ const LoginForm = () => {
         type="email"
         id="form7Example1"
         label="Email address"
-      />{" "}
+        onChange={onChangeHandler}
+        name="login"
+      />
       <MDBInput
         className="mb-3"
         type="password"
-        hidden={true}
         id="form7Example2"
-      />{" "}
+        label="Password"
+        onChange={onChangeHandler}
+        name="password"
+      />
       <MDBRow className="mb-3 d-flex align-items-center">
-        <MDBCol xs={6}>
-          <MDBInput
-            className="mb-0"
-            type="password"
-            id="form7Example2"
-            label="Password"
-          />
-        </MDBCol>
         <MDBCol
           xs={6}
           style={{
@@ -62,9 +87,7 @@ const LoginForm = () => {
           <a href="#!">Forgot password?</a>
         </MDBCol>
       </MDBRow>
-      <MDBBtn type="submit" className="mb-3" block>
-        {" "}
-        {/* Adjusted margin-bottom */}
+      <MDBBtn type="submit" className="mb-3" block onClick={handleLogin}>
         Sign in
       </MDBBtn>
       <div className="text-center">

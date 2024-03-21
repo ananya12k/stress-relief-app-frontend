@@ -1,100 +1,128 @@
+import React, { useState } from "react";
+import axios from "axios";
 import {
+  MDBBtn,
+  MDBIcon,
+  MDBInput,
   MDBModal,
   MDBModalDialog,
   MDBModalContent,
-  MDBIcon,
   MDBTabs,
   MDBTabsItem,
   MDBTabsLink,
   MDBTabsContent,
   MDBTabsPane,
 } from "mdb-react-ui-kit";
-import { useState, useEffect } from "react";
 import LoginForm from "../forms/LoginForm";
-// import { useNavigate } from "react-router-dom";
 import SignupForm from "../forms/SignupForm";
+
 const LoginComp = ({ show, handleClose }) => {
   const [loginRegisterActive, setLoginRegisterActive] = useState("login");
 
   const handleLoginRegisterClick = (tab) => {
     setLoginRegisterActive(tab);
-    const newUrl = tab === "login" ? "/login" : "/register";
-    window.history.pushState({}, "", newUrl); // Update URL manually
   };
 
-  // Handle URL changes (including back button) and modal closure
-  useEffect(() => {
-    const onPopState = () => {
-      // Check if URL potentially changed while modal was open
-      if (show && window.history.state !== undefined) {
-        const originalUrl = window.location.href.split("#")[0]; // Remove hash
-        if (originalUrl !== window.history.state) {
-          // URL has changed (likely back button), so reset state
-          setLoginRegisterActive("login");
-          window.history.replaceState({}, "", originalUrl); // Replace URL
-        }
-      }
-    };
+  const sendParamsToBackend = (type, params) => {
+    let endpoint = "";
+    if (type === "login") {
+      endpoint = "http://localhost:8080/login";
+    } else if (type === "register") {
+      endpoint = "http://localhost:8080/register";
+    } else if (type === "logout") {
+      endpoint = "http://localhost:8080/logout";
+    }
 
-    // Add and remove event listener on component mount/unmount
-    window.addEventListener("popstate", onPopState);
-    return () => window.removeEventListener("popstate", onPopState);
-  }, [show]); // Re-run useEffect on show prop change
+    if (endpoint) {
+      axios
+        .post(endpoint, params)
+        .then((response) => {
+          if (type === "logout") {
+            console.log("Logout successful");
+            // Handle logout success if needed
+          } else {
+            console.log(`${type} parameters sent to backend successfully`);
+            // Handle success for login or register if needed
+          }
+        })
+        .catch((error) => {
+          if (type === "logout") {
+            console.error("Error during logout:", error);
+            // Handle logout error if needed
+          } else {
+            console.error(
+              `Error sending ${type} parameters to backend:`,
+              error
+            );
+            // Handle error for login or register if needed
+          }
+        });
+    } else {
+      console.error(`Invalid request type: ${type}`);
+      // Handle invalid request type if needed
+    }
+  };
 
   return (
-    <>
-      <MDBModal open={show ? true : false}>
-        <MDBModalDialog centered scrollable size="lg">
-          <MDBModalContent
-            className="p-5 overflow-auto"
-            style={{ maxHeight: "80vh" }}
-          >
-            <MDBIcon
-              fas
-              icon="times"
-              className="ms-auto click-handler"
-              size="lg"
-              onClick={handleClose}
-              style={{ marginBottom: "1rem" }}
-            />
-
-            <div>
-              <MDBTabs pills justify className="mb-3">
-                <MDBTabsItem>
-                  <MDBTabsLink
-                    onClick={() => handleLoginRegisterClick("login")}
-                    active={loginRegisterActive === "login"}
-                  >
-                    Login
-                  </MDBTabsLink>
-                </MDBTabsItem>
-                <MDBTabsItem>
-                  <MDBTabsLink
-                    onClick={() => handleLoginRegisterClick("register")}
-                    active={loginRegisterActive === "register"}
-                  >
-                    Register
-                  </MDBTabsLink>
-                </MDBTabsItem>
-              </MDBTabs>
-
-              <MDBTabsContent>
-                <MDBTabsPane
-                  open={loginRegisterActive === "login" ? true : false}
+    <MDBModal open={show}>
+      <MDBModalDialog centered scrollable size="lg">
+        <MDBModalContent
+          className="p-5 overflow-auto"
+          style={{ maxHeight: "80vh" }}
+        >
+          <MDBIcon
+            fas
+            icon="times"
+            className="ms-auto click-handler"
+            size="lg"
+            onClick={handleClose}
+            style={{ marginBottom: "1rem" }}
+          />
+          <div>
+            <MDBTabs pills justify className="mb-3">
+              <MDBTabsItem>
+                <MDBTabsLink
+                  onClick={() => handleLoginRegisterClick("login")}
+                  active={loginRegisterActive === "login"}
                 >
-                  <LoginForm />
-                </MDBTabsPane>
-                <MDBTabsPane
-                  open={loginRegisterActive === "register" ? true : false}
+                  Login
+                </MDBTabsLink>
+              </MDBTabsItem>
+              <MDBTabsItem>
+                <MDBTabsLink
+                  onClick={() => handleLoginRegisterClick("register")}
+                  active={loginRegisterActive === "register"}
                 >
-                  <SignupForm />
-                </MDBTabsPane>
-              </MDBTabsContent>
-            </div>
-          </MDBModalContent>
-        </MDBModalDialog>
-      </MDBModal>
-    </>
+                  Register
+                </MDBTabsLink>
+              </MDBTabsItem>
+            </MDBTabs>
+
+            <MDBTabsContent>
+              <MDBTabsPane open={loginRegisterActive === "login"}>
+                <LoginForm
+                  onLogin={(login, password) =>
+                    sendParamsToBackend("login", { login, password })
+                  }
+                />
+              </MDBTabsPane>
+              <MDBTabsPane open={loginRegisterActive === "register"}>
+                <SignupForm
+                  onSubmit={(firstName, lastName, login, password) =>
+                    sendParamsToBackend("register", {
+                      firstName,
+                      lastName,
+                      login,
+                      password,
+                    })
+                  }
+                />
+              </MDBTabsPane>
+            </MDBTabsContent>
+          </div>
+        </MDBModalContent>
+      </MDBModalDialog>
+    </MDBModal>
   );
 };
 
