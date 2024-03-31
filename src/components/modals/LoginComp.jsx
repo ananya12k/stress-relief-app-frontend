@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
+import LoginForm from "../forms/LoginForm";
+import SignupForm from "../forms/SignupForm";
 import {
-  MDBBtn,
   MDBIcon,
-  MDBInput,
   MDBModal,
   MDBModalDialog,
   MDBModalContent,
@@ -13,8 +13,6 @@ import {
   MDBTabsContent,
   MDBTabsPane,
 } from "mdb-react-ui-kit";
-import LoginForm from "../forms/LoginForm";
-import SignupForm from "../forms/SignupForm";
 
 const LoginComp = ({ show, handleClose }) => {
   const [loginRegisterActive, setLoginRegisterActive] = useState("login");
@@ -43,6 +41,7 @@ const LoginComp = ({ show, handleClose }) => {
           } else {
             console.log(`${type} parameters sent to backend successfully`);
             // Handle success for login or register if needed
+            console.log("Response:", response.data); // Accessing response data
           }
         })
         .catch((error) => {
@@ -108,13 +107,8 @@ const LoginComp = ({ show, handleClose }) => {
               </MDBTabsPane>
               <MDBTabsPane open={loginRegisterActive === "register"}>
                 <SignupForm
-                  onSubmit={(firstName, lastName, login, password) =>
-                    sendParamsToBackend("register", {
-                      firstName,
-                      lastName,
-                      login,
-                      password,
-                    })
+                  onSubmit={(formData) =>
+                    sendParamsToBackend("register", formData)
                   }
                 />
               </MDBTabsPane>

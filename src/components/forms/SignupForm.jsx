@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { MDBBtn, MDBIcon, MDBInput, MDBCheckbox } from "mdb-react-ui-kit";
 
@@ -6,8 +6,10 @@ const SignupForm = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    login: "",
+    username: "", // Changed 'login' to 'username'
+    email: "", // Added email field
     password: "",
+    confirmPassword: "", // Added confirmPassword field
   });
 
   const onChangeHandler = (event) => {
@@ -18,14 +20,27 @@ const SignupForm = ({ onSubmit }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit(
-      formData.firstName,
-      formData.lastName,
-      formData.login,
-      formData.password
-    );
+    if (formData.password !== formData.confirmPassword) {
+      // Check if passwords match
+      // Show error message or handle appropriately
+      return;
+    }
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/register",
+        formData
+      );
+      if (response.status === 201) {
+        // Successful registration
+        onSubmit();
+      } else {
+        // Handle error
+      }
+    } catch (error) {
+      // Handle error
+    }
   };
 
   return (
@@ -49,7 +64,7 @@ const SignupForm = ({ onSubmit }) => {
       <MDBInput
         className="mb-3"
         id="form8Example4"
-        name="login"
+        name="username"
         label="Username"
         onChange={onChangeHandler}
       />
@@ -67,7 +82,13 @@ const SignupForm = ({ onSubmit }) => {
         label="Last Name"
         onChange={onChangeHandler}
       />
-
+      <MDBInput
+        className="mb-3"
+        id="form8Example7"
+        name="email"
+        label="Email"
+        onChange={onChangeHandler}
+      />
       <MDBInput
         className="mb-3"
         type="password"
@@ -76,13 +97,20 @@ const SignupForm = ({ onSubmit }) => {
         label="Password"
         onChange={onChangeHandler}
       />
+      <MDBInput
+        className="mb-3"
+        type="password"
+        id="form8Example6"
+        name="confirmPassword"
+        label="Confirm Password"
+        onChange={onChangeHandler}
+      />
       <MDBCheckbox
         wrapperClass="d-flex justify-content-center mb-3"
-        id="form8Example6"
+        id="form8Example8"
         label="I have read and agree to the terms"
         defaultChecked
       />
-
       <MDBBtn type="submit" className="mb-3" block>
         Sign up
       </MDBBtn>

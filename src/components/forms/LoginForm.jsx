@@ -1,20 +1,17 @@
 import { useState } from "react";
 import {
   MDBBtn,
-  MDBIcon,
   MDBInput,
   MDBRow,
   MDBCol,
   MDBCheckbox,
+  MDBIcon,
 } from "mdb-react-ui-kit";
+import axios from "axios";
 
-const LoginForm = ({ onLogin, onRegister }) => {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    login: "",
-    password: "",
-  });
+const LoginForm = ({ onLogin }) => {
+  const [formData, setFormData] = useState({ login: "", password: "" });
+  const [error, setError] = useState(null);
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
@@ -24,26 +21,24 @@ const LoginForm = ({ onLogin, onRegister }) => {
     }));
   };
 
-  const handleLogin = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onLogin(formData.login, formData.password);
-  };
-
-  const handleRegister = (e) => {
-    e.preventDefault();
-    onRegister(
-      formData.firstName,
-      formData.lastName,
-      formData.login,
-      formData.password
-    );
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/login",
+        formData
+      );
+      const token = response.data.token; // Assuming the token is returned in the response
+      onLogin(token);
+    } catch (error) {
+      setError("Invalid credentials. Please try again."); // Handle login error
+    }
   };
 
   return (
-    <form className="p-3">
+    <form className="p-3" onSubmit={handleSubmit}>
       <div className="text-center mb-2">
-        <p> Login with:</p>
-
+        <p>Login with:</p>
         <MDBBtn floating color="secondary" className="mx-1">
           <MDBIcon fab icon="facebook-f" />
         </MDBBtn>
@@ -87,7 +82,8 @@ const LoginForm = ({ onLogin, onRegister }) => {
           <a href="#!">Forgot password?</a>
         </MDBCol>
       </MDBRow>
-      <MDBBtn type="submit" className="mb-3" block onClick={handleLogin}>
+      {error && <div className="text-danger mb-3">{error}</div>}
+      <MDBBtn type="submit" className="mb-3" block>
         Sign in
       </MDBBtn>
       <div className="text-center">
