@@ -1,74 +1,70 @@
 import { useState } from "react";
 import styled from "styled-components";
-import Journal from "../components/Journal";
-import moment from "moment";
+import Header from "../components/Header";
+import { data } from "../lib/constants";
+import GraditudeCardForm from "../components/GratitudeCardForm";
+import GratitudeList from "../components/GratitudeList";
 
 const GratitudeJournal = () => {
-    const [entries, setEntries] = useState([]);
-    const [dates, setDates] = useState([]);
-  
-    function addEntry(entry) {
-      const newEntries = [...entries, entry];
-      setEntries(newEntries);
-      addDate(Date());
-    }
-  
-    function addDate(timestamp) {
-      const date = moment(timestamp).format("'MMMM Do YYYY, h:mm:ss a'");
-      const newDates = [...dates, date];
-      setDates(newDates);
-    }
-  
-    const onClick = (e) => {
-      clearState();
-    };
-  
-    const clearState = () => {
-      setEntries([]);
-      setDates([]);
-    };
-  
-    return (
-      <Wrapper>
-        <Journal handleSubmit={addEntry} />
-        {dates.map((f) => (
-          <label
-            className="label"
-            htmlFor="entry"
-            key={f}
-            selected={f === dates}
-            onSubmit={() => setDates(f)}
-          >
-            {f}
-          </label>
-        ))}
-        <div className="spacer"> </div>
-        <div> Journal Entries</div>
-        {entries.map((f) => (
-          <div
-            className="history"
-            name="entry"
-            key={f}
-            selected={f === entries}
-            onSubmit={() => setEntries(f)}
-          >
-            {f}
-          </div>
-        ))}
-        <div className="spacer"> </div>
-        <button className="clear" onClick={onClick}>
-          {" "}
-          Clear Entries
-        </button>
-      </Wrapper>
-    );
+  const [cardCount, setCardCound] = useState(0);
+
+  const [gratitudes, setGratitudes] = useState(data.reverse());
+
+  const [showInput, changeShowInput] = useState(true);
+
+  const [isEmpty, changeIsEmpty] = useState(false);
+
+  function flipShowInput() {
+    changeShowInput(!showInput);
   }
-export default GratitudeJournal;
-  const Wrapper = styled.div`
+
+  function clearGratitudes() {
+    setGratitudes([]);
+    changeShowInput(true);
+    changeIsEmpty(true);
+  }
+
+  function addGratitude(singleGratitude) {
+    setCardCound(cardCount + 1);
+
+    const newGratitudes = [singleGratitude, ...gratitudes];
+    setGratitudes(newGratitudes);
+    changeIsEmpty(false);
+  }
+
+  return (
+    <AppWrapper className="App">
+      <Header
+        clearFunc={clearGratitudes}
+        showFormFunc={flipShowInput}
+        isEmptyGratitudes={isEmpty}
+        flipButton={showInput}
+      />
+      {showInput && (
+        <GraditudeCardForm handleSubmit={addGratitude} num={cardCount} />
+      )}
+
+      <GratitudeList data={gratitudes} changeData={setGratitudes} />
+    </AppWrapper>
+  );
+};
+
+const AppWrapper = styled.div`
+  /* padding: 15px; */
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  background-color: rgb(224, 187, 228);
+  height: 100%;
+
+  text-align: center;
+  margin: 0;
+  padding: 0;
+
+  body #root,
+  #root {
     height: 100%;
-    background-color: var(--gray-300);
-    display: flex;
-    flex-direction: column;
-    place-items: center;
-  `;
-  
+  }
+`;
+
+export default GratitudeJournal;
