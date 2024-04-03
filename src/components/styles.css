@@ -1,0 +1,16 @@
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  margin: 0;
+  height: 100%;
+  background-color: lightblue;
+}
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  padding-top: 30px;
+}

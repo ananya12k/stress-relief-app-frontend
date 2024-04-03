@@ -7,6 +7,8 @@ import DiaryWrtitingPage from "./pages/DiaryWrtitingPage";
 import LoginComp from "./components/modals/LoginComp";
 import SignupForm from "./components/forms/SignupForm";
 import LoginForm from "./components/forms/LoginForm";
+import GratitudeJournal from "./pages/GratitudeJournal";
+import BreathingExercise from "./pages/BreathingExercise";
 function App() {
   return (
     <>
@@ -20,6 +22,8 @@ function App() {
           <Route path="/login" element={<LoginComp />} />
           <Route path="/login/form" element={<LoginForm />} />
           <Route path="/signup/form" element={<SignupForm />} />
+          <Route path="/gratitude" element={<GratitudeJournal />} />
+          <Route path="/breathing" element={<BreathingExercise />} />
         </Routes>
       </Router>
     </>

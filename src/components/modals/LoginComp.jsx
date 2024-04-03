@@ -24,11 +24,11 @@ const LoginComp = ({ show, handleClose }) => {
   const sendParamsToBackend = (type, params) => {
     let endpoint = "";
     if (type === "login") {
-      endpoint = "http://localhost:8080/login";
+      endpoint = "http://localhost:8080/api/login";
     } else if (type === "register") {
-      endpoint = "http://localhost:8080/register";
+      endpoint = "http://localhost:8080/api/register";
     } else if (type === "logout") {
-      endpoint = "http://localhost:8080/logout";
+      endpoint = "http://localhost:8080/api/logout";
     }
 
     if (endpoint) {

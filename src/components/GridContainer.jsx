@@ -49,29 +49,29 @@ const GridContainer = () => {
         link: "/music",
       },
     ],
-    [
-      {
-        imageURL: "/cbt.png",
-        title: "CBT Techniques",
-        text: "Develop resilience and improve problem-solving skills with cognitive-behavioral strategies.",
-        buttonText: "Learn More",
-        link: "/cbt",
-      },
-      {
-        imageURL: "/swot.png",
-        title: "SWOT Analysis",
-        text: "Gain insights into personal strengths, weaknesses, opportunities, and threats for strategic planning.",
-        buttonText: "Learn More",
-        link: "/swot",
-      },
-      {
-        imageURL: "/sleep.jpg",
-        title: "Sleep Stories",
-        text: "Drift into relaxation and deep sleep with calming bedtime narratives.",
-        buttonText: "Learn More",
-        link: "/sleepstories",
-      },
-    ],
+    // [
+    //   {
+    //     imageURL: "/cbt.png",
+    //     title: "CBT Techniques",
+    //     text: "Develop resilience and improve problem-solving skills with cognitive-behavioral strategies.",
+    //     buttonText: "Learn More",
+    //     link: "/cbt",
+    //   },
+    //   {
+    //     imageURL: "/swot.png",
+    //     title: "SWOT Analysis",
+    //     text: "Gain insights into personal strengths, weaknesses, opportunities, and threats for strategic planning.",
+    //     buttonText: "Learn More",
+    //     link: "/swot",
+    //   },
+    //   {
+    //     imageURL: "/sleep.jpg",
+    //     title: "Sleep Stories",
+    //     text: "Drift into relaxation and deep sleep with calming bedtime narratives.",
+    //     buttonText: "Learn More",
+    //     link: "/sleepstories",
+    //   },
+    // ],
   ];
 
   return (

@@ -25,7 +25,7 @@ const LoginForm = ({ onLogin }) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8080/login",
+        "http://localhost:8080/api/mylogin/",
         formData
       );
       const token = response.data.token; // Assuming the token is returned in the response

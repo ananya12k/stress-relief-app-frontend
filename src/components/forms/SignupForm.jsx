@@ -29,11 +29,12 @@ const SignupForm = ({ onSubmit }) => {
     }
     try {
       const response = await axios.post(
-        "http://localhost:8080/register",
+        "http://localhost:8080/api/register/",
         formData
       );
       if (response.status === 201) {
         // Successful registration
+        console.log("Registration successful");
         onSubmit();
       } else {
         // Handle error

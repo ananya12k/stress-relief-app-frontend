@@ -87,7 +87,7 @@ export default function Navbar() {
                   Exercises
                 </MDBNavbarLink>
               </MDBNavbarItem>
-              <MDBNavbarItem>
+              {/* <MDBNavbarItem>
                 <MDBNavbarLink
                   href="/insights"
                   active={activeTab === "insights"}
@@ -95,7 +95,7 @@ export default function Navbar() {
                 >
                   Insights
                 </MDBNavbarLink>
-              </MDBNavbarItem>
+              </MDBNavbarItem> */}
               {/* Replace the dropdown with a simple button */}
               <MDBNavbarItem>
                 {isLoggedIn ? (
