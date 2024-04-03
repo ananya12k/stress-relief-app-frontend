@@ -17,10 +17,11 @@ import HomeIcon from "@mui/icons-material/Home";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ListIcon from "@mui/icons-material/List";
 import { ListItemButton } from "@mui/material";
-import QuillEditor from "./QuillEditor.jsx";
 import MuiAppBar from "@mui/material/AppBar";
 import styled from "@mui/material/styles/styled";
 import { drawerWidth } from "../../utils/constants.js";
+import { Link } from "react-router-dom";
+import QuillEditor from "./QuillEditor.jsx";
 const QuillDrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
@@ -68,7 +69,7 @@ const QuillAppBar = styled(MuiAppBar, {
     }),
   }),
 }));
-export default function DiarySideNavBar() {
+export default function DiarySideNavBar({ children }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -79,7 +80,6 @@ export default function DiarySideNavBar() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -141,7 +141,7 @@ export default function DiarySideNavBar() {
         <Divider />
         <List>
           {/* New Entry */}
-          <ListItemButton key="New Entry">
+          <ListItemButton key="New Entry" component={Link} to="/newentry">
             <ListItemIcon>
               <AddCircleOutlineIcon />
             </ListItemIcon>
@@ -149,7 +149,11 @@ export default function DiarySideNavBar() {
           </ListItemButton>
 
           {/* View All Entries */}
-          <ListItemButton key="View All Entries">
+          <ListItemButton
+            key="View All Entries"
+            component={Link}
+            to="/allentries"
+          >
             <ListItemIcon>
               <ListIcon />
             </ListItemIcon>
@@ -159,8 +163,7 @@ export default function DiarySideNavBar() {
       </Drawer>
       <QuillMain open={open}>
         <QuillDrawerHeader />
-        {/* <TextEditor /> */}
-        <QuillEditor />
+        {children}
       </QuillMain>
     </Box>
   );

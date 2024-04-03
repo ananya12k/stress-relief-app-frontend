@@ -9,6 +9,8 @@ import SignupForm from "./components/forms/SignupForm";
 import LoginForm from "./components/forms/LoginForm";
 import GratitudeJournal from "./pages/GratitudeJournal";
 import BreathingExercise from "./pages/BreathingExercise";
+import ViewAllEntriesPage from "./components/quill/ViewAllEntriesPage";
+import ShowNewPage from "./components/quill/ShowNewPage";
 function App() {
   return (
     <>
@@ -24,6 +26,8 @@ function App() {
           <Route path="/signup/form" element={<SignupForm />} />
           <Route path="/gratitude" element={<GratitudeJournal />} />
           <Route path="/breathing" element={<BreathingExercise />} />
+          <Route path="/allentries" element={<ViewAllEntriesPage />} />
+          <Route path="/newentry" element={<ShowNewPage />} />
         </Routes>
       </Router>
     </>
