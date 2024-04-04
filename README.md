@@ -1,13 +1,34 @@
 # Stress Relief & Habit Builder App
 
-Main Features:
-1. Login SignUp
-2. Daily Journal
-3. Gratitude Journal
-4. Breathing Exercises
+Welcome to our Stress Relief & Habit Builder App! In today's fast-paced world, managing stress and cultivating healthy habits are essential for overall well-being. Our app aims to empower users to take control of their mental and physical health by offering a comprehensive set of features designed to reduce stress and foster positive habits.
 
+## Introduction
 
+Life can often be overwhelming, with various stressors affecting our mental and physical health. So, the app provides a holistic solution to combat stress and improve overall well-being. Whether you're looking to incorporate mindfulness practices into your daily routine or cultivate healthy habits for long-term wellness, our app is designed to support you every step of the way.
 
+## Features
+
+### 1. Yoga and Exercise Routines
+Access a diverse library of yoga and exercise routines suitable for all skill levels. Follow along with video demonstrations and track your progress to stay motivated and achieve your fitness goals.
+
+### 2. Breathing Exercises
+Practice guided breathing exercises to relax your mind and body. Our app offers a variety of breathing techniques with visual cues to help you manage stress effectively.
+
+### 3. Daily Reflections and Journaling
+Promote self-awareness and emotional well-being by jotting down your thoughts, feelings, and reflections. Develop a daily journaling habit to gain insights into your mental state and track your personal growth journey.
+
+### 4. Gratitude Journal
+Cultivate a positive mindset by expressing gratitude daily. Use our app to list things you're thankful for, fostering a sense of appreciation and contentment in your life.
+
+## Tech Stack
+
+ Web app is built using microservices architechture to deliver a seamless user experience:
+
+- **Backend**: Developed using Spring Boot,Hibernate and PostgreSQL
+
+- **Frontend**: Built with React
+- 
+- **Authentication**: Implemented using JSON Web Tokens (JWT) for secure authentication and authorization. 
 
 
 # Dockerizeing a React App
