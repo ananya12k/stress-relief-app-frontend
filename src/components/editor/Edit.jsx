@@ -7,65 +7,44 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import Ckeditor from "react-ckeditor-component/lib/ckeditor";
-import PageTitle from "../../../src/components/PageTitle";
+import { useParams, useNavigate } from "react-router-dom";
+import Navbar from "../NavBar";
 
-export default function Edit(props) {
+export default function Edit() {
+  const { id } = useParams();
   const [name, setName] = useState("");
-  const [notes, setNotes] = useState(null);
+  const [notes, setNotes] = useState("");
   const history = useNavigate();
 
-  function onChange(evt) {
-    var newContent = evt.editor.getData();
-    setNotes(newContent);
-  }
-
-  function onBlur(evt) {}
-
-  function afterPaste(evt) {
-    var newContent = evt.editor.getData();
-    setNotes(newContent);
-  }
+  useEffect(() => {
+    const orderData = JSON.parse(localStorage.getItem("order_data")) || [];
+    const order = orderData[id];
+    if (order) {
+      setName(order.name);
+      setNotes(order.notes);
+    }
+  }, [id]);
 
   function handleSubmit(event) {
     event.preventDefault();
-    var id = props.match.params.id;
-    let arr = [];
-    if (
-      localStorage.getItem("order_data") !== null &&
-      localStorage.getItem("order_data")
-    ) {
-      arr = JSON.parse(localStorage.getItem("order_data"));
-    }
-    arr[id - 1].name = name;
-    arr[id - 1].notes = notes;
-    localStorage.setItem("order_data", JSON.stringify(arr));
-    history.push("/");
+    const orderData = JSON.parse(localStorage.getItem("order_data")) || [];
+    orderData[id] = { name, notes };
+    localStorage.setItem("order_data", JSON.stringify(orderData));
+    history.push("/diary");
   }
 
   function goBack() {
-    history.push("/");
+    history.push("/diary");
   }
-
-  useEffect(() => {
-    let arr = [];
-    if (
-      localStorage.getItem("order_data") !== null &&
-      localStorage.getItem("order_data")
-    ) {
-      arr = JSON.parse(localStorage.getItem("order_data"));
-    }
-    let data = arr[props.match.params.id - 1];
-    setName(data.name);
-    setNotes(data.notes);
-  }, [props.match.params.id]);
 
   return (
     <Container fluid className="main-content-container px-4">
+      <Navbar />
       <Grid container justifyContent="center" spacing={2}>
         <Grid item xs={12}>
-          <PageTitle title="Edit Order" />
+          <Typography variant="h3" className="page-title">
+            Edit Order
+          </Typography>
         </Grid>
         <Grid item xs={12}>
           <Card className="mb-4">
@@ -82,29 +61,20 @@ export default function Edit(props) {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <Typography variant="h6" gutterBottom>
-                    Content
-                  </Typography>
-                  <Ckeditor
-                    activeClass="p10"
-                    content={notes}
-                    events={{
-                      blur: (e) => onBlur(e),
-                      afterPaste: (e) => afterPaste(e),
-                      change: (e) => onChange(e),
-                    }}
-                    required={true}
+                  <TextField
+                    fullWidth
+                    label="Content"
+                    variant="outlined"
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    required
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <Button variant="contained" color="primary" type="submit">
                     Update
                   </Button>
-                  <Button
-                    variant="contained"
-                    color="error"
-                    onClick={() => goBack()}
-                  >
+                  <Button variant="contained" color="error" onClick={goBack}>
                     Cancel
                   </Button>
                 </Grid>

@@ -8,21 +8,21 @@ import SignupForm from "./components/forms/SignupForm";
 import LoginForm from "./components/forms/LoginForm";
 import GratitudeJournal from "./pages/GratitudeJournal";
 import BreathingExercise from "./pages/BreathingExercise";
-import OrderList from "../src/components/editor/List";
-import OrderAdd from "../src/components/editor/Add";
-import OrderEdit from "../src/components/editor/Edit";
+import Add from "../src/components/editor/Add";
+import Edit from "../src/components/editor/Edit";
+import MyComponent from "./components/editor/MyComponent";
 function App() {
   return (
     <>
       <Router>
         <Routes>
-          <Route path="/" Component={HomePage} />
-          <Route path="/exercises" Component={ExercisesPage} />
-          <Route path="*" ele ment={<h1>Not Found</h1>} />
-          <Route path="/insights" Component={InsightsPage} />
-          <Route path="/diary" element={<OrderList />} />
-          <Route path="/diary/add" element={<OrderAdd />} />
-          <Route path="/diary/edit/:id" element={<OrderEdit />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/exercises" element={<ExercisesPage />} />
+          <Route path="*" element={<h1>Not Found</h1>} />
+          <Route path="/insights" element={<InsightsPage />} />
+          <Route path="/diary" element={<MyComponent />} />
+          <Route path="/diary/add" element={<Add />} />
+          <Route path="/diary/edit/:id" element={<Edit />} />
 
           <Route path="/login" element={<LoginComp />} />
           <Route path="/login/form" element={<LoginForm />} />
