@@ -25,9 +25,7 @@ Cultivate a positive mindset by expressing gratitude daily. Use our app to list 
  Web app is built using microservices architechture to deliver a seamless user experience:
 
 - **Backend**: Developed using Spring Boot,Hibernate and PostgreSQL
-
 - **Frontend**: Built with React
-- 
 - **Authentication**: Implemented using JSON Web Tokens (JWT) for secure authentication and authorization. 
 
 
