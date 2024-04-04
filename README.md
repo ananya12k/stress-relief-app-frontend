@@ -1,3 +1,15 @@
+# Stress Relief & Habit Builder App
+
+Main Features:
+1. Login SignUp
+2. Daily Journal
+3. Gratitude Journal
+4. Breathing Exercises
+
+
+
+
+
 # Dockerizeing a React App
 
 1. Create a new React app using `npm init vite@latest stress-relief-app -- --template react`
